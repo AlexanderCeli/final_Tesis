@@ -5,261 +5,189 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/_120459284_681cd9ecfd_z">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:background="#80000000"
+        android:layout_height="match_parent">
 
-
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin">
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtConectadoBluethoo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="10sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="Conexion"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="Temperatura del ambiente"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
 
             <LinearLayout
-                android:id="@+id/linearContenedor"
-                android:layout_width="wrap_content"
-                android:layout_height="722dp"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/Conexion"
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:background="#C8392222"
+                    android:text="Temperatura: "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/txtDataSensor"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/linearContenedorProbarConexion"
-                    android:orientation="vertical">
+                    android:layout_below="@+id/sensorView0"
+                    android:layout_centerHorizontal="true"
+                    android:text="Analizando..."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#F8FFFFFF"
+                    android:textSize="24sp" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="41dp"
-                        android:layout_marginRight="41dp"
-                        android:layout_toStartOf="@+id/sensorView0"
-                        android:layout_toLeftOf="@+id/sensorView0"
-                        android:text="Probar conexión"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearPruebaConexion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/controlLuz"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="monospace"
+                android:text="Control de luz"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp" />
 
-                        <TextView
-                            android:id="@+id/controlLuz"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/buttonOn"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="10dp"
-                            android:fontFamily="monospace"
-                            android:text="Control de luz"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="#FFFFFF"
-                            android:textSize="36sp" />
+            <LinearLayout
+                android:id="@+id/lineaSeparador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="#00696969"
+                android:orientation="horizontal">
 
-                    </LinearLayout>
+                <ImageButton
+                    android:id="@+id/buttonOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="135dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/enc" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lineaSeparador"
-                    android:layout_width="match_parent"
-                    android:layout_height="131dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/linearSeparador"
-                    android:background="#00696969"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-
-                        <ImageButton
-                            android:id="@+id/buttonOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="135dp"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/enc" />
-
-                        <ImageButton
-                            android:id="@+id/buttonOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/apg" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/Sensores"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@+id/linearContenedorSensorHumedadyTemperatura"
-                    android:orientation="vertical"
-                    android:weightSum="1">
-
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="monospace"
-                        android:text="Temperatura ambiente"
-                        android:textColor="#FFFFFF"
-                        android:textSize="30sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="34dp"
-                            android:background="#C8392222"
-                            android:text="Temperatura: "
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="#FFFFFF"
-                            android:textSize="24sp" />
-
-                        <TextView
-                            android:id="@+id/sensorView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/sensorView0"
-                            android:layout_centerHorizontal="true"
-                            android:text="Resultado 2: ????"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="#F8FFFFFF"
-                            android:textSize="24sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lineaSeparador2"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/linearSeparador"
-                    android:background="@color/linearSeparador"
-                    android:orientation="vertical" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:id="@+id/buttonOff"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/apg" />
 
-                    <TextView
-                        android:id="@+id/tv_sendorcortinas"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/buttonOn"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:text="Cortinas"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#FFFFFF" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearPruebaConexionn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_sendorcortinas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="Control de cortinas"
+                android:textSize="25sp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
 
-                        <ImageButton
-                            android:id="@+id/buttonCortOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="135dp"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/enc" />
+            <LinearLayout
+                android:id="@+id/linearPruebaConexionn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                        <ImageButton
-                            android:id="@+id/buttonCortOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/apg" />
+                <ImageButton
+                    android:id="@+id/buttonCortOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="135dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/enc" />
+
+                <ImageButton
+                    android:id="@+id/buttonCortOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/apg" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_sendorvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="Control de ventilador"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:id="@+id/linearPruebaConexionnn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/buttonVenOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="135dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/enc" />
+
+                <ImageButton
+                    android:id="@+id/buttonVenOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/apg" />
 
 
-                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_sendorvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/buttonOn"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="10dp"
-                        android:text="Ventilador"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#FFFFFF" />
+            </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linearPruebaConexionnn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+            <Button
+                android:id="@+id/config_general"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Configuracion general" />
 
-                        <ImageButton
-                            android:id="@+id/buttonVenOn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="135dp"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/enc" />
-
-                        <ImageButton
-                            android:id="@+id/buttonVenOff"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:backgroundTint="#00FFFFFF"
-                            app:srcCompat="@drawable/apg" />
-
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/alrm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Configuracion de Alrma de encendido" />
-                    <Button
-                        android:id="@+id/vent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Configuracion de la temperatura " />
-
-                </LinearLayout>
 
 
             </LinearLayout>
 
 
-        </RelativeLayout>
-
-
+    </ScrollView>
 
 </RelativeLayout>

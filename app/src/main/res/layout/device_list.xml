@@ -19,6 +19,7 @@
     <ListView
         android:id="@+id/paired_devices"
         android:layout_width="match_parent"
+        android:padding="5dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:cacheColorHint="#000000"
@@ -35,6 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:textColor="#FFD600"
+        android:padding="5dp"
+        android:gravity="center"
+        android:background="#80000000"
         android:text="Si no hay dispositivos en la lista, por favor enlaza tu dispositivo en la configuración de Android"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18dp" />

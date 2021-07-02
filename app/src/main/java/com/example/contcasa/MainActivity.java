@@ -7,14 +7,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,15 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     ImageButton btnOn,btnOff,btnMotorON,btnMotorof,btnventron,btnventrof;
-    TextView   sensorView1, conectado;
+    TextView   txtDataSensor, conectado;
     Handler bluetoothIn;
     Button alarm ;
 
-
+    private SharedPreferences settings;
+    private String baseTemperatura;
     final int handlerState = 0;        				 // utilizado para identificar el mensaje del manejador
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private StringBuilder recDataString = new StringBuilder();
+    private String dataTemperature ="Analizando...";
+    private boolean isEnviadoPrenderVentiladores=false;
 
     private ConnectedThread mConnectedThread;
 
@@ -58,28 +65,24 @@ public class MainActivity extends AppCompatActivity {
         btnMotorof =(ImageButton) findViewById(R.id.buttonCortOff);
         btnventron =(ImageButton) findViewById(R.id.buttonVenOn);
         btnventrof =(ImageButton) findViewById(R.id.buttonVenOff);
-        alarm =(Button) findViewById(R.id.alrm);
+        alarm =(Button) findViewById(R.id.config_general);
 
 
-        sensorView1 = (TextView) findViewById(R.id.sensorView1);
+        txtDataSensor = (TextView) findViewById(R.id.txtDataSensor);
 
-        conectado = (TextView) findViewById(R.id.textView);
+        conectado = (TextView) findViewById(R.id.txtConectadoBluethoo);
 
 
 
         alarm.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, alarma.class);
+                Intent i = new Intent(MainActivity.this, Alarma.class);
                 startActivity(i);
             }
         });
 
-        bluetoothIn = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                Log.e("handleMessage: ", msg.toString() );
-            }
-        };
+
 
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();       // obtén el adaptador Bluetooth
@@ -91,8 +94,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mConnectedThread.write("aa");    // Enviar por Bluetooth
                 Toast.makeText(getBaseContext(), "Apagar el LED", Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -107,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
         btnMotorof.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 mConnectedThread.write("qq");    // Enviar por Bluetooth
-
+                Toast.makeText(getBaseContext(), "Apagar Motor", Toast.LENGTH_SHORT).show();
 
             }
         });
         btnMotorON.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 mConnectedThread.write("ww");    // Enviar por Bluetooth
-
+                Toast.makeText(getBaseContext(), "Prender Motor", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -122,16 +123,45 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mConnectedThread.write("tt");    // Enviar por Bluetooth
 
+                Toast.makeText(getBaseContext(), "Apagar Ventilador", Toast.LENGTH_SHORT).show();
 
             }
         });
         btnventron.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 mConnectedThread.write("rr");    // Enviar por Bluetooth
-
+                Toast.makeText(getBaseContext(), "Prender Ventilador", Toast.LENGTH_SHORT).show();
             }
         });
 
+        settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        baseTemperatura = settings.getString("baseTemperatura","25");
+        double datoBaseTemperatura=Double.parseDouble(baseTemperatura);
+        bluetoothIn = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                String readMessage=msg.obj.toString();
+                if (readMessage.length()>11) {
+                    dataTemperature = readMessage.split("=")[1];
+                }
+                if (txtDataSensor!=null&&dataTemperature!=null&&!dataTemperature.isEmpty()){
+                    txtDataSensor.setText(dataTemperature);
+                    if (!isEnviadoPrenderVentiladores){
+                        try {
+                            //Compara el valor del dato configurado para la alarma y el del sistema arduino.
+                            if (Double.parseDouble(dataTemperature)>=datoBaseTemperatura){
+                                mConnectedThread.write("rr");
+                                Toast.makeText(MainActivity.this, "El Ventilador ha sido prendido por que supera los valores de alarma.", Toast.LENGTH_LONG).show();
+                                isEnviadoPrenderVentiladores=true;
+                            }
+                        }catch (NumberFormatException e){
+                            Log.e("MainACtivity", "handleMessage: "+e.getMessage() );
+                        }
+
+                    }
+                }
+
+            }
+        };
     }
 
 
@@ -154,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         // crear dispositivo y configurar la dirección MAC
         //Log.i("ramiro", "adress : " + address);
         BluetoothDevice device = btAdapter.getRemoteDevice(address);
-        conectado.setText(address);
+        conectado.setText("Conectado a: "+address);
 
         try {
             btSocket = createBluetoothSocket(device);
@@ -214,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
+
         //creación del hilo de conexión
         public ConnectedThread(BluetoothSocket socket) {
             InputStream tmpIn = null;
@@ -241,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     bytes = mmInStream.read(buffer);        	//leer bytes del búfer de entrada
                     String readMessage = new String(buffer, 0, bytes);
-                    Log.d("BLUETHOO", "run: "+readMessage );
                     // Envíe los bytes obtenidos a la actividad de la interfaz de usuario a través del controlador via handler
                     bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
                 } catch (IOException e) {
@@ -251,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //write method
         public void write(String input) {
+            Log.e("EscribirEnAnduino","Dato Enviado:" + input );
             byte[] msgBuffer = input.getBytes();           //convierte la cadena ingresada en bytes
             try {
                 mmOutStream.write(msgBuffer);                //escribir bytes a través de la conexión BT a través de la salida
@@ -258,9 +289,31 @@ public class MainActivity extends AppCompatActivity {
                 // si no puedes escribir, cierra la aplicación
                 Toast.makeText(getBaseContext(), "La Conexión fallo", Toast.LENGTH_LONG).show();
                 finish();
-
             }
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);
+            dialogo1.setTitle("Importante");
+            dialogo1.setMessage("¿ En realidad desea salir de la app?");
+            dialogo1.setCancelable(false);
+            dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+                    MainActivity.this.finish();
+                    System.exit(0);
+                }
+            });
+            dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogo1, int id) {
+
+                }
+            });
+            dialogo1.show();
+            return true;
+        }
+        return false;
+    }
 }

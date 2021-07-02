@@ -535,6 +535,8 @@ color bright_foreground_material_light
 color button_material_dark
 color button_material_light
 color colorAccent
+color colorOff
+color colorOn
 color colorPrimary
 color colorPrimaryDark
 color dim_foreground_disabled_material_dark
@@ -828,7 +830,6 @@ drawable tooltip_frame_light
 font amaranth_bold
 id ALT
 id CTRL
-id Conexion
 id FUNCTION
 id META
 id NO_DEBUG
@@ -837,7 +838,6 @@ id SHOW_ALL
 id SHOW_PATH
 id SHOW_PROGRESS
 id SYM
-id Sensores
 id accelerate
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
@@ -894,7 +894,6 @@ id activity_chooser_view_content
 id add
 id alertTitle
 id aligned
-id alrm
 id always
 id animateToEnd
 id animateToStart
@@ -922,11 +921,14 @@ id center
 id center_vertical
 id chain
 id chains
-id change_notification
+id change_config_temepratura
+id change_notification_off
+id change_notification_on
 id checkbox
 id checked
 id chronometer
 id collapseActionView
+id config_general
 id connecting
 id content
 id contentPanel
@@ -987,12 +989,7 @@ id left
 id line1
 id line3
 id lineaSeparador
-id lineaSeparador2
 id linear
-id linearContenedor
-id linearContenedorProbarConexion
-id linearContenedorSensorHumedadyTemperatura
-id linearPruebaConexion
 id linearPruebaConexionn
 id linearPruebaConexionnn
 id listMode
@@ -1046,7 +1043,6 @@ id search_src_text
 id search_voice_btn
 id select_dialog_listview
 id sensorView0
-id sensorView1
 id shortcut
 id showCustom
 id showHome
@@ -1083,7 +1079,6 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
-id textView
 id textView2
 id textView3
 id textView4
@@ -1101,11 +1096,13 @@ id transitionToStart
 id triangle
 id tv_sendorcortinas
 id tv_sendorvent
+id txtConectadoBluethoo
+id txtDataSensor
+id txt_base_temperatura
 id unchecked
 id uniform
 id up
 id useLogo
-id vent
 id visible
 id withText
 id wrap
@@ -1169,6 +1166,7 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
+raw alarm
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -1200,6 +1198,7 @@ string action_settings
 string app_name
 string change_time
 string changed_to
+string configuracion
 string hello_world
 string new_notification
 string none_paired

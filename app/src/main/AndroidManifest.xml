@@ -4,17 +4,14 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- MAKE ALARMS RESTART ON REBOOT -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- MAKE ALARMS RESTART ON REBOOT -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".ServiceAlarm"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity android:name=".MainActivity2">
             <intent-filter>
@@ -34,30 +35,19 @@
         <activity android:name=".DeviceListActivity" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".alarma"
-             android:parentActivityName=".MainActivity2"
- >
+            android:name=".Alarma"
+            android:parentActivityName=".MainActivity2">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.contcasa.alarma" />
+                android:value="com.example.contcasa.Alarma" />
         </activity>
-        <receiver
-            android:name="com.walkiriaapps.alarmmanagersampl.AlarmReceiver"
-            android:enabled="true" />
-
-        <service
-            android:name="com.walkiriaapps.alarmmanagersampl.NotificationService"
-            android:enabled="true" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" /> <!-- MAKE ALARMS RESTART ON REBOOT -->
-        <service android:name="com.walkiriaapps.alarmmanagersampl.RebootServiceClass" />
 
-        <receiver android:name="com.walkiriaapps.alarmmanagersampl.MyRebootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
+
+        <receiver android:name=".AlarmReceiver" >
         </receiver>
     </application>
 
