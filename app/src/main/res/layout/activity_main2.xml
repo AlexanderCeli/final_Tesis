@@ -3,8 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/principal">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/_625688576727" />
 
     <TextView
         android:id="@+id/textView3"
@@ -18,8 +25,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="Desarrollo de una aplicación móvil para el control de domótica simulado en un prototipo de casa y con uso de hardware Libre"
-        android:textColor="#FFD600"
-        android:background="#80000000"
+        android:textColor="#003568"
         android:textSize="26sp" />
 
     <TextView
@@ -30,10 +36,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="103dp"
-        android:gravity="center"
-        android:textColor="#FFD600"
         android:fontFamily="@font/amaranth_bold"
+        android:gravity="center"
         android:text="Por: Max Lalangui"
-        android:background="#80000000"
+        android:textColor="#003568"
         android:textSize="26sp" />
 </RelativeLayout>

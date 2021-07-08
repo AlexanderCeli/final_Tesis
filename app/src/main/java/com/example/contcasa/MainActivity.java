@@ -22,9 +22,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isEnviadoPrenderVentiladores=false;
 
     private ConnectedThread mConnectedThread;
+    private ToggleButton Luz, cortinas, ventilador;
+
 
     // Servicio de UUID SPP: esto debería funcionar para la mayoría de los dispositivos
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -59,19 +63,60 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Vincular los botones y textViews a las respectivas vistas
-        btnOn = (ImageButton) findViewById(R.id.buttonOn);
-        btnOff = (ImageButton) findViewById(R.id.buttonOff);
-        btnMotorON =(ImageButton) findViewById(R.id.buttonCortOn);
-        btnMotorof =(ImageButton) findViewById(R.id.buttonCortOff);
-        btnventron =(ImageButton) findViewById(R.id.buttonVenOn);
-        btnventrof =(ImageButton) findViewById(R.id.buttonVenOff);
-        alarm =(Button) findViewById(R.id.config_general);
 
+
+        alarm =(Button) findViewById(R.id.config_general);
+        Luz = (ToggleButton) findViewById(R.id.toggleButton);
+        cortinas = (ToggleButton) findViewById(R.id.togglecortinas);
+        ventilador = (ToggleButton) findViewById(R.id.toggleventilador);
 
         txtDataSensor = (TextView) findViewById(R.id.txtDataSensor);
 
         conectado = (TextView) findViewById(R.id.txtConectadoBluethoo);
 
+// Configurar oyentes para que el Togle envíen datos para encender / apagar
+        Luz.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mConnectedThread.write("bb");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Encender el LED", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    mConnectedThread.write("aa");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Apagar el LED", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        cortinas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mConnectedThread.write("ww");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Abrir Cortinas", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    mConnectedThread.write("qq");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Cerrar Cortinas", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        ventilador.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mConnectedThread.write("rr");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Prender Ventilador", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    mConnectedThread.write("tt");    // Enviar por Bluetooth
+                    Toast.makeText(getBaseContext(), "Apagar Ventilador", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
 
 
         alarm.setOnClickListener(new OnClickListener() {
@@ -89,54 +134,11 @@ public class MainActivity extends AppCompatActivity {
         checkBTState();
 
 
-        // Configurar oyentes onClick para que los botones envíen datos para encender / apagar
-        btnOff.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("aa");    // Enviar por Bluetooth
-                Toast.makeText(getBaseContext(), "Apagar el LED", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        btnOn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("bb");    // Enviar por Bluetooth
-                Toast.makeText(getBaseContext(), "Encender el LED", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-        btnMotorof.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("qq");    // Enviar por Bluetooth
-                Toast.makeText(getBaseContext(), "Apagar Motor", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        btnMotorON.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("ww");    // Enviar por Bluetooth
-                Toast.makeText(getBaseContext(), "Prender Motor", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        btnventrof.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("tt");    // Enviar por Bluetooth
-
-                Toast.makeText(getBaseContext(), "Apagar Ventilador", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        btnventron.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                mConnectedThread.write("rr");    // Enviar por Bluetooth
-                Toast.makeText(getBaseContext(), "Prender Ventilador", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         settings = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
         baseTemperatura = settings.getString("baseTemperatura","25");
-        double datoBaseTemperatura=Double.parseDouble(baseTemperatura);
+        final double datoBaseTemperatura=Double.parseDouble(baseTemperatura);
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 String readMessage=msg.obj.toString();

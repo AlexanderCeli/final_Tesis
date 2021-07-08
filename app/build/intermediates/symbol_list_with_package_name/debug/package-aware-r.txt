@@ -1,4 +1,4 @@
-com.example.contcasa
+com.example.controlcasa
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -707,6 +707,7 @@ dimen tooltip_vertical_padding
 dimen tooltip_y_offset_non_touch
 dimen tooltip_y_offset_touch
 drawable _120459284_681cd9ecfd_z
+drawable _625688576727
 drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
 drawable abc_btn_borderless_material
@@ -822,9 +823,12 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable off
+drawable onn
 drawable principal
 drawable sin_t_tulo_1
 drawable splashscreen
+drawable toogle_option
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 font amaranth_bold
@@ -909,13 +913,7 @@ id beginning
 id blocking
 id bottom
 id bounce
-id buttonCortOff
-id buttonCortOn
-id buttonOff
-id buttonOn
 id buttonPanel
-id buttonVenOff
-id buttonVenOn
 id cache_measures
 id center
 id center_vertical
@@ -978,6 +976,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id imageView
 id info
 id infoText
 id invisible
@@ -1089,6 +1088,9 @@ id titleDividerNoCustom
 id title_paired_devices
 id title_template
 id toggle
+id toggleButton
+id togglecortinas
+id toggleventilador
 id top
 id topPanel
 id transitionToEnd
@@ -1165,6 +1167,7 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 raw alarm
 string abc_action_bar_home_description

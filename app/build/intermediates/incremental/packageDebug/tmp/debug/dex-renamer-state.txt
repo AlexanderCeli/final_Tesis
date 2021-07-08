@@ -1,10 +1,7 @@
-#Wed Jun 30 21:34:10 ECT 2021
-base.2=/Users/jpsolanoc/AndroidStudioProjects/Tesis/app/build/intermediates/dex/debug/mergeProjectDexDebug/15/classes.dex
-path.2=15/classes.dex
-base.1=/Users/jpsolanoc/AndroidStudioProjects/Tesis/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-path.1=0/classes.dex
-base.0=/Users/jpsolanoc/AndroidStudioProjects/Tesis/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-renamed.2=classes3.dex
+#Thu Jul 08 18:41:29 COT 2021
+base.0=C\:\\Users\\AlexanderCeli\\AndroidStudioProjects\\Tesis\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+path.1=classes.dex
 renamed.1=classes2.dex
-renamed.0=classes.dex
 path.0=classes.dex
+renamed.0=classes.dex
+base.1=C\:\\Users\\AlexanderCeli\\AndroidStudioProjects\\Tesis\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
